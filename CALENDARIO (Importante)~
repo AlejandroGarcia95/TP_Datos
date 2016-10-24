@@ -1,0 +1,35 @@
+HITOS
+
+asap:
+	- Elegir el tercer tipo de conversor a usar
+	- Buscar SVM custom para comparar 
+
+01/11: 
+	- El compresor Huffman tiene que estar hecho, implementado como el aritmético.
+	- SVM básico (dos categorías) tiene que estar funcionando.
+
+07/11:
+	- SVM multi-categorias tiene que estar funcionando.
+
+10/11:
+	- Tercer compresor tiene que estar funcionando.
+	- Programar posta los métodos de predicción que basamos en proba.
+	- Empezamos primeras pruebas de predicciones (pruebas truchas con sets mínimos)
+
+11/11:
+	- Inicio de confección del informe (elegir secciones, primeras partes chamuyables, etc).
+
+13/11:
+	- Tienen que estar hechos los archivos .csv con las reviews ya procesadas
+
+Semana del 14/11:
+	- Semana del "k-fold cross validation": escribir modelo que 	
+
+Finde del 18/11 al 20/11:
+
+	- Informe a full ultra completo
+	- Últimas pruebas ("guerra de las predicciones"). Humillación del equipo de Juampi
+	- Período de menos sueño del mes
+
+21/11:
+	- Entregamos el informe y el TP exitosamente!

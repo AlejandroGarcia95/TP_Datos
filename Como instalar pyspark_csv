@@ -1,0 +1,13 @@
+Para instalar el pyspark_csv van a tener que editar el kernel en J-SON que tuvieron que hacer para poder usar Jupyter con pyspark.
+
+Busquen el dichoso kernel, y modifiquen la última línea para que sea así:
+
+"PYSPARK_SUBMIT_ARGS": "--packages com.databricks:spark-csv_2.11:1.2.0 pyspark-shell"
+
+La directiva --packages le dice a Jupyter que tiene que inicializarse cargando módulos externos adicionales a los que ya usa (en este caso el pyspark_csv). 
+
+Además, van a tener que editar el PYTHONPATH para que haga referencia al directorio donde tienen el archivo. Lo más fácil es directemente copiar el pyspar_csv.py que está en esta carpeta y pegarlo directamente en alguno de los directorios que ya tengan dentro de PYTHONPATH. Obviamente también pueden poner el pyspark_csv en otro directorio y agregarlo al PYTHONPATH.
+
+Finalmente, no borren el pyspark_csv.py de esta carpeta, y si van a usar un notebook de Jupyter en alguna carpeta ajena al repo, copien el mismo archivo en esa carpeta.
+
+Eso es todo! Si todo sale bien, cuando abran Jupyter y hagan import pyspark_csv no debería explotar. Si corren el notebook del TP que tengo acá, la primer cell debería ser capaz de leer el archivo de muestra y generar un RDD con eso.
