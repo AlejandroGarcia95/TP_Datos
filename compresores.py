@@ -196,7 +196,7 @@ class CompresorHuffman(CompresorEstatico):
 		self.arbol = self.obtenerArbol()
 		
 		dictSimb = self.asignarCodigo(self.arbol)
-		#print dictSimb
+		# print dictSimb
 		for simbolo in texto:
 			codigo += dictSimb[simbolo]
 		
