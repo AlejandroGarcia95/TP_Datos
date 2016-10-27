@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from parseo import *
+from heapq import *
 
 class CompresorEstatico:
 	def __init__(self, modoParseo):
@@ -149,9 +150,78 @@ class CompresorAritmetico(CompresorEstatico):
 
 		return decode
 
+class NodoHuffman:
+	def __init__(self, izq = None, der = None):
+		self.izq = izq
+		self.der = der
 
 
+class CompresorHuffman(CompresorEstatico):
+	def __init__(self, modoParseo):
+		CompresorEstatico.__init__(self, modoParseo)
+		self.arbol = None
 
+	
+	def asignarCodigo(self, nodo, codigo = "", dic = {}):
+		if isinstance(nodo[1].izq[1], NodoHuffman):
+			self.asignarCodigo(nodo[1].izq, codigo + "0", dic)
+		else:
+			dic[nodo[1].izq[1]] = codigo + "0"
+
+		if isinstance(nodo[1].der[1], NodoHuffman):
+			self.asignarCodigo(nodo[1].der, codigo + "1", dic)
+		else:
+			dic[nodo[1].der[1]] = codigo + "1"
+		
+		return dic
+			
+	def obtenerArbol(self):
+		heap = []
+		
+		for simbolo, frec in self.tabla.verItems():
+			heap.append((frec, simbolo))
+
+		heapify(heap)
+		while len(heap) > 1:
+			izq = heappop(heap)
+			der = heappop(heap)		
+			nodo = NodoHuffman(izq,der)
+			heappush(heap, (izq[0] + der[0], nodo))
+
+		return heappop(heap)
+
+	def comprimirTexto(self, texto):
+		
+		codigo = ""
+		self.arbol = self.obtenerArbol()
+		
+		dictSimb = self.asignarCodigo(self.arbol)
+		#print dictSimb
+		for simbolo in texto:
+			codigo += dictSimb[simbolo]
+		
+		return codigo
+
+	def descomprimirTexto(self, codigo):
+		texto = ""
+		finalAux = self.arbol[1]
+		
+		for bit in codigo:
+			if bit == '0':
+				finalAux = finalAux.izq[1]
+				if isinstance(finalAux, basestring):
+					texto += finalAux
+					finalAux = self.arbol[1]
+			else:
+				finalAux = finalAux.der[1]
+				if isinstance(finalAux, basestring):
+					texto += finalAux
+					finalAux = self.arbol[1]
+
+		return texto
+					
+					
+		
 
 #Zona de tests
 #cmpr = CompresorAritmetico('letra')
@@ -165,4 +235,12 @@ class CompresorAritmetico(CompresorEstatico):
 #print 'Resultado final normal: ',binario
 #print 'Descompresion:\n\"', cmpr.descomprimirTexto(binario), '\"'
 
+#cmpr = CompresorHuffman('letra')
+#cmpr.parsearTexto(texto)
+#binario = cmpr.comprimirTexto(texto)
+#final = cmpr.descomprimirTexto(binario)
+#if (texto == final):
+#	print "OK"
+#print 'Resultado final normal: ',binario
+#print 'Descompresion:\n\"', cmpr.descomprimirTexto(binario), '\"'
 

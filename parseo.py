@@ -39,7 +39,7 @@ class SymbolTable:
 		self.simbolos = {}
 		
 	def agregarSimbolo(self, simbolo):
-		self.simbolos[simbolo] = 2	
+		self.simbolos[simbolo] = 1	
 	
 	def verCasosTotales(self):
 		casosTotales = 0
@@ -61,6 +61,9 @@ class SymbolTable:
 			return 1
 		else:
 			return self.simbolos[simbolo]
+	def verItems(self):
+		return self.simbolos.items();
+
 		
 
 
