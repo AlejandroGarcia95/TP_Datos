@@ -20,10 +20,16 @@ asap:
 	- Inicio de confección del informe (elegir secciones, primeras partes chamuyables, etc).
 
 13/11:
-	- Tienen que estar hechos los archivos .csv con las reviews ya procesadas
+	- Tienen que estar hechos los archivos .csv con las reviews ya procesadas (con todas las selecciones de criterios vistos)
+	- SVM posta (ajeno) ya conseguido, listo para usar para comparar
 
 Semana del 14/11:
-	- Semana del "k-fold cross validation": escribir modelo que 	
+	- Semana del "k-fold cross validation": escribir modelo que haga k-fold cross validation y elija los
+	mejores hiperparámetros para cada modelo. Grid search y etc.
+	- Elección de los mejores conjuntos de hiperparámetros para cada modelo.
+	- Pruebas posta en Kaggle para todas las combinaciones.
+	- Elección del mejor modelo según nuestro propio cross validation y según los resultados en Kaggle.
+	- Comparación entre compresores y SVM nuestro vs SVM posta	
 
 Finde del 18/11 al 20/11:
 
