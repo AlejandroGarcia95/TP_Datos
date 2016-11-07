@@ -1,7 +1,6 @@
 HITOS
 
 asap:
-	- Elegir el tercer tipo de conversor a usar
 	- Buscar SVM custom para comparar 
 
 01/11: 
@@ -12,7 +11,7 @@ asap:
 	- SVM multi-categorias tiene que estar funcionando.
 
 10/11:
-	- Tercer compresor tiene que estar funcionando.
+	- Compresor LZ-Huff tiene que estar funcionando.
 	- Programar posta los métodos de predicción que basamos en proba.
 	- Empezamos primeras pruebas de predicciones (pruebas truchas con sets mínimos)
 

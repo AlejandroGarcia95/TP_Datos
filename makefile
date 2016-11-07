@@ -1,5 +1,5 @@
 
-MENSAJE = SVMmmmmmm
+MENSAJE = Falta multi prediccion
 
 all:
 	jupyter notebook --ip 0.0.0.0

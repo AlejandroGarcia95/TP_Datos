@@ -1,5 +1,5 @@
 
-MENSAJE = Winter is coming
+MENSAJE = SVMmmmmmm
 
 all:
 	jupyter notebook --ip 0.0.0.0

@@ -1,22 +1,21 @@
 HITOS
 
 asap:
-	- Elegir el tercer tipo de compresor a usar
 	- Buscar SVM custom para comparar 
 
 01/11: 
-	- El compresor Huffman tiene que estar hecho, implementado como el aritmético.
-	- SVM básico (dos categorías) tiene que estar funcionando.
+	- El compresor Huffman tiene que estar hecho, implementado como el aritmético.	[GOOD JOB!]
+	- SVM básico (dos categorías) tiene que estar funcionando.	[GOOD JOB!]
 
 07/11:
 	- SVM multi-categorias tiene que estar funcionando.
 
-10/11:
-	- Tercer compresor tiene que estar funcionando.
+11/11:
+	- Compresor LZ-Huff tiene que estar funcionando.
 	- Programar posta los métodos de predicción que basamos en proba.
 	- Empezamos primeras pruebas de predicciones (pruebas truchas con sets mínimos)
 
-11/11:
+12/11:
 	- Inicio de confección del informe (elegir secciones, primeras partes chamuyables, etc).
 
 13/11:
