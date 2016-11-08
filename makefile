@@ -1,5 +1,5 @@
 
-MENSAJE = Falta multi prediccion
+MENSAJE = MulticatSVM vivee
 
 all:
 	jupyter notebook --ip 0.0.0.0

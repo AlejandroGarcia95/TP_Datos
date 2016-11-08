@@ -5,8 +5,8 @@ import numpy as np
 from scipy import optimize
 from basicSVM import *
 
-# Ahora actualizado para soft-margin y kernel
-
+# El MulticatSVM funciona de forma similar al SVM básico, pero siendo
+# capaz de clasificar enésimas categorías. 
 
 class MulticatSVM:
 	# Crea el MulticatSVM. Es necesario especificar la dimensión de los datos,
@@ -18,6 +18,8 @@ class MulticatSVM:
 		self.resultados = 0
 		self.kernel = np.dot
 		self.sigma = 0.5
+		self.delta_C = self.delta_C_lineal
+		self.criterio = self.criterio_lineal
 	
 	# Función que determina si se va a usar o no un kernel específico.
 	# Si no se la llama antes del método entrenar, el kernel por defecto
@@ -27,15 +29,31 @@ class MulticatSVM:
 	# gaussiano (si no se usa ese kernel, dicho valor no sirve para nada).
 	# Si se desea usar cualquier otra función de kernel externa, puede
 	# pasarse a ésta misma a través de kernel_func.
-	def usar_kernel(self, kernel_func, sigma = 0.5):
+	# La función criterio_func es una función usada en la predicción.
+	# Básicamente, la función recibe como parámetro el resultado de la
+	# cuenta <w, x> + k  y debe devolver un número mayor a 0 si el x
+	# pertenece a la categoría A que divide ese hiperplano o menor a 0
+	# si pertenece a la categoría B (ídem como en el SVM básico).
+	# La función criterio por defecto es self.criterio_lineal.
+	def usar_kernel(self, kernel_func, criterio_func, sigma=0.5):
 		self.sigma = sigma
+		self.criterio = criterio_func
 		if(kernel_func == "linear"):
 			self.kernel = np.dot
 		elif(kernel_func == "gaussian"):
 			self.kernel = self.kernel_gaussiano
 		else:
 			self.kernel = kernel_func
-		
+	
+	# Asigna una función delta_C al MulticatSVM. La función delta_C
+	# indica cuánto debe variar la cte de soft margin en el cálculo de
+	# cada hiperplano. Por ejemplo, si inicialmente C = 100 y se usa
+	# delta_C_fun = 0.5*C entonces el primer hiperplano se calculará
+	# con C=100, el segundo con C=50, el tercero con C=25 y así.
+	# Si no se llama a este método antes del método entrenar, la función
+	# delta_C por defecto es self.delta_C_lineal.
+	def asignar_delta_C(self, delta_C_func):
+		self.delta_c = delta_C_func	
 		
 	# Kernel gaussiano pre-disponible para el MulticatSVM.
 	# Propiedad de Alejandro García, no tocar.	
@@ -68,14 +86,29 @@ class MulticatSVM:
 			basicSVM = SVM(dim = self.dimension, cte_soft_margin = self.C, kernel_func = self.kernel)
 			basicSVM.entrenar(datos_claseA = catA, datos_claseB = catB)
 			self.resultados.append(basicSVM.devolver_hiperplano())
-		print self.resultados
-		
+			self.C = self.delta_C(self.C)
+		#print self.resultados
+	
+	# Función delta_C por defecto. Cambiar 0.55 por 1? Sólo puedo decir que 0.55 me funcionó relativamente bien
+	def delta_C_lineal(self, viejoC):
+			return viejoC * 0.55
+	
+	
+	def criterio_lineal(self, producto):
+		return producto		
 	
 	# Predice la categoría del nuevoDato, devolviendo un valor.
 	# IMPORTANTE: nuevoDato debe ser de clase numpy.vector, y tiene
 	# que ser vector del dato EN FLOATING POINT
 	def predecir(self, nuevoDato):
-		return 0
+		for i in range(0, self.categorias-1):
+			aux = np.append(nuevoDato, 1.0)
+			hiperplano = np.copy(self.resultados[i][0])
+			hiperplano = np.append(hiperplano, self.resultados[i][1])
+			elResult = self.kernel(aux, hiperplano)
+			if(self.criterio_lineal(elResult) > 0):
+				return i+1
+		return self.categorias
 	
 
 	
@@ -87,7 +120,7 @@ def kernel_gaussiano(x, y):
 	dist = np.linalg.norm(x - y)
 	return np.exp((-0.5 * dist * dist) / (sigma * sigma) )
 
-our_svm = MulticatSVM(dim = 2, cte_soft_margin = 550.0, cantCategorias = 4)
+our_svm = MulticatSVM(dim = 2, cte_soft_margin = 9000.0, cantCategorias = 4)
 
 azules = []
 azules.append(np.array([0.00, 4.00]))
@@ -148,14 +181,18 @@ puntos.append(violetas)
 our_svm.entrenar(puntos) 
 
 # Azul > 0, Rojo < 0	
-print "Prediccion de los puntos: (Azul = 1, Rojo = 0)"
-print "(-1.3, -1.0): ", our_svm.predecir(np.array([-1.3, -1.0]))
-print "(2.5, 4.0): ", our_svm.predecir(np.array([2.5, 4.0]))
-print "(0.2, 2.2): ", our_svm.predecir(np.array([0.2, 2.2]))
-print "(-3.0, 3.0): ", our_svm.predecir(np.array([-3.0, 3.0]))
-print "(2.0, -3.5): ", our_svm.predecir(np.array([2.0, -3.5]))
-print "(-2.6, 0.0): ", our_svm.predecir(np.array([-2.6, 0.0]))
-
+print "Prediccion de los puntos marrones" 
+print "(Azul = 1, Rojo = 2, Verde = 3, Violeta = 4)\n"
+print "(0.2, 3.8): ", our_svm.predecir(np.array([0.2, 3.8]))
+print "(1.1, -2.2): ", our_svm.predecir(np.array([1.1, -2.2]))
+print "(3.2, 1.4): ", our_svm.predecir(np.array([3.2, 1.4]))
+print "(-3.0, -3.0): ", our_svm.predecir(np.array([-3.0, -3.0]))
+print "(2.0, 5.0): ", our_svm.predecir(np.array([2.0, 5.0]))
+print "(4.5, 2.5): ", our_svm.predecir(np.array([4.5, 2.5]))
+print "(-3.0, 2.0): ", our_svm.predecir(np.array([-3.0, 2.0]))
+print "(-0.1, -2.9): ", our_svm.predecir(np.array([-0.1, -2.9]))
+print "(1.5, 3.5): ", our_svm.predecir(np.array([1.5, 3.5]))
+print "(-3.1, 0.0): ", our_svm.predecir(np.array([-3.1, 0.0]))
 
 
 
