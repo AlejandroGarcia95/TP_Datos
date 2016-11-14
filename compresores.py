@@ -237,8 +237,8 @@ binario = "011011000000000100110111011111011101110100010100011111001111010110111
 print 'Resultado final normal: ',binario
 print 'Descompresion:\n\"', cmpr.descomprimirTexto(binario), '\"'
 
-#cmpr = CompresorHuffman('letra')
-#cmpr.parsearTexto(texto)
+cmpr = CompresorHuffman('letra')
+cmpr.parsearTexto(texto)
 #binario = cmpr.comprimirTexto(texto)
 #final = cmpr.descomprimirTexto(binario)
 #if (texto == final):
