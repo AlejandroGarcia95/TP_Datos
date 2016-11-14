@@ -87,7 +87,7 @@ class MulticatSVM:
 			basicSVM.entrenar(datos_claseA = catA, datos_claseB = catB)
 			self.resultados.append(basicSVM.devolver_hiperplano())
 			self.C = self.delta_C(self.C)
-		#print self.resultados
+		print self.resultados
 	
 	# Función delta_C por defecto. Cambiar 0.55 por 1? Sólo puedo decir que 0.55 me funcionó relativamente bien
 	def delta_C_lineal(self, viejoC):
@@ -114,7 +114,7 @@ class MulticatSVM:
 	
 
 # Zona de tests:
-
+"""
 def kernel_gaussiano(x, y):
 	sigma = 0.15
 	dist = np.linalg.norm(x - y)
@@ -193,7 +193,7 @@ print "(-3.0, 2.0): ", our_svm.predecir(np.array([-3.0, 2.0]))
 print "(-0.1, -2.9): ", our_svm.predecir(np.array([-0.1, -2.9]))
 print "(1.5, 3.5): ", our_svm.predecir(np.array([1.5, 3.5]))
 print "(-3.1, 0.0): ", our_svm.predecir(np.array([-3.1, 0.0]))
-
+"""
 
 
 

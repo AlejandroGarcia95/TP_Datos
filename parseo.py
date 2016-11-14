@@ -60,6 +60,7 @@ class SymbolTable:
 			return 1
 		else:
 			return self.simbolos[simbolo]
+			
 	def verItems(self):
 		return self.simbolos.items();
 
@@ -77,6 +78,10 @@ class SymbolParser:
 		if (self.parseMode == 'letra'):
 			for c in texto:
 				tabla.aumentarFrecuencia(c)
+		elif (self.parseMode == 'palabra'):
+			palabras = texto.split()
+			for w in palabras:
+				tabla.aumentarFrecuencia(w)
 		
 
 
