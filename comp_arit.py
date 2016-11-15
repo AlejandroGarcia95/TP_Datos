@@ -48,6 +48,7 @@ class CompresorAritmetico:
 		for simb in simbolos:
 			if (simb == c):
 				self.intSuperior = self.intInferior + (tabla.verFrecuencia(simb) * longMinima)
+				#print "Emito", simb, self.intInferior, self.intSuperior
 				
 				# Testeo por redimensión
 				E1_resize = self.intInferior < HALF_INT and self.intSuperior < HALF_INT
@@ -61,6 +62,7 @@ class CompresorAritmetico:
 						E3bit = 1
 						self.intInferior = self.intInferior * 2
 						self.intSuperior = self.intSuperior * 2 + 1
+						#print "E1", self.intInferior, self.intSuperior
 						while (self.E3count > 0):
 							self.emit(E3bit)
 							self.E3count -= 1			
@@ -69,6 +71,7 @@ class CompresorAritmetico:
 						E3bit = 0
 						self.intInferior = (self.intInferior - HALF_INT) * 2
 						self.intSuperior = (self.intSuperior - HALF_INT) * 2 + 1
+						#print "E2", self.intInferior, self.intSuperior
 						while (self.E3count > 0):
 							self.emit(E3bit)
 							self.E3count -= 1	
@@ -76,7 +79,7 @@ class CompresorAritmetico:
 						self.E3count += 1
 						self.intInferior = (self.intInferior - FIRST_QUAD) * 2
 						self.intSuperior = (self.intSuperior - FIRST_QUAD) * 2 + 1	
-
+						#print "E3", self.intInferior, self.intSuperior
 					E3_resize = self.intInferior >= FIRST_QUAD and self.intSuperior < THIRD_QUAD					
 					E1_resize = self.intInferior < HALF_INT and self.intSuperior < HALF_INT
 					E2_resize = self.intInferior >= HALF_INT and self.intSuperior >= HALF_INT
@@ -94,7 +97,7 @@ class CompresorAritmetico:
 		i = 1
 		lastBits = ''
 
-		while((valorBin <= self.intInferior)):# or (valorBin >= self.intSuperior)):
+		while((valorBin < self.intInferior)):# or (valorBin >= self.intSuperior)):
 			aux = HALF_INT >> (i-1)
 			if((valorBin + aux) >= self.intSuperior):
 				lastBits += '0'
@@ -115,7 +118,7 @@ class CompresorAritmetico:
 					self.emit(1)
 				else:
 					self.emit(0)
-			#lastBits += lastBits[1:len(lastBits)]
+			lastBits = lastBits[1:len(lastBits)]
 			
 		for c in lastBits:
 			if (c == '0'):
@@ -199,10 +202,10 @@ class DecompresorAritmetico:
 		#resto = (self.intSuperior - self.intInferior) - (longMinima * casosTotales)
 				
 		target = self.deco.getValue()
-		
+		#print target
 		for simb in simbolos:
 			self.intSuperior = self.intInferior + (tabla.verFrecuencia(simb) * longMinima)
-			print simb, " --- ", self.intInferior, self.intSuperior
+			#print simb, " --- ", self.intInferior, self.intSuperior
 			
 			if ((target >= self.intInferior) and (target < self.intSuperior)):
 							
@@ -216,14 +219,17 @@ class DecompresorAritmetico:
 						self.intInferior = self.intInferior * 2
 						self.intSuperior = self.intSuperior * 2 + 1
 						self.deco.reduce_E1()
+						#print "E1", self.intInferior, self.intSuperior
 					elif(E2_resize):
 						self.intInferior = (self.intInferior - HALF_INT) * 2
 						self.intSuperior = (self.intSuperior - HALF_INT) * 2 + 1
+						#print "E2", self.intInferior, self.intSuperior
 						self.deco.reduce_E2()
 					elif(E3_resize):
 						self.deco.reduce_E3()
 						self.intInferior = (self.intInferior - FIRST_QUAD) * 2
 						self.intSuperior = (self.intSuperior - FIRST_QUAD) * 2 + 1
+						#print "E3", self.intInferior, self.intSuperior
 				
 					E3_resize = self.intInferior >= FIRST_QUAD and self.intSuperior < THIRD_QUAD
 					E1_resize = self.intInferior < HALF_INT and self.intSuperior < HALF_INT

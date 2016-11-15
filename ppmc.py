@@ -143,35 +143,35 @@ class CompresorHibrido:
 	def comprimir(self, texto):
 		context = ''	
 		for c in texto:
-			print "COMPRIMO", c
+			#print "COMPRIMO", c
 			context_act = context
 			
 			# Primero trato de comprimir con el contexto mayor
 			emitido = False
 			while(len(context_act) > 0 and not emitido):
 				if (context_act not in self.tablas):
-					print "CONTEXT NOT FOUND", context_act
+					#print "CONTEXT NOT FOUND", context_act
 					self.comp.comprimirSimbolo(ESCAPE_CODE, self.tabla_ESC)
 					context_act = context_act[1:len(context_act)]
 					
 				elif (c not in self.tablas[context_act].verSimbolos()):
-					print "CHAR ", c, " NOT FOUND IN ", context_act
+					#print "CHAR ", c, " NOT FOUND IN ", context_act
 					self.comp.comprimirSimbolo(ESCAPE_CODE, self.tablas[context_act])
 					context_act = context_act[1:len(context_act)]
 				else:
-					print "CHAR ", c, " FOUND IN ", context_act
+					#print "CHAR ", c, " FOUND IN ", context_act
 					self.comp.comprimirSimbolo(c, self.tablas[context_act])
 					emitido = True
 			
 			if (not emitido):
 				if (c not in self.tablas[MODELO_CERO].verSimbolos()):
-					print "CHAR ", c, " NOT FOUND IN ZERO"
+					#print "CHAR ", c, " NOT FOUND IN ZERO"
 					self.comp.comprimirSimbolo(ESCAPE_CODE, self.tablas[MODELO_CERO])
 					self.comp.comprimirSimbolo(c, self.tablas[MODELO_MENOS_UNO])
 				else:
-					print "CHAR ", c, " FOUND IN ZERO"
-					print self.tablas[MODELO_CERO].verCasosTotales()
-					print self.tablas[MODELO_CERO].verItems()
+					#print "CHAR ", c, " FOUND IN ZERO"
+					#print self.tablas[MODELO_CERO].verCasosTotales()
+					#print self.tablas[MODELO_CERO].verItems()
 					self.comp.comprimirSimbolo(c, self.tablas[MODELO_CERO])
 			
 			if (len(context) < self.orden):
@@ -199,7 +199,7 @@ class CompresorHibrido:
 			while(len(context_act) > 0 and not emitido):
 				
 				if (context_act not in self.tablas):
-					print "CONTEXT NOT FOUND", context_act
+					#print "CONTEXT NOT FOUND", context_act
 					simb = deco.decomprimirSimbolo(self.tabla_ESC)
 					if (not simb == ESCAPE_CODE):
 						print "ERROR: EXPECTED EOF"
@@ -207,23 +207,23 @@ class CompresorHibrido:
 				else:
 					simb = deco.decomprimirSimbolo(self.tablas[context_act])
 					if (simb == ESCAPE_CODE):
-						print "FOUND CONTEXT, GOT ESC", context_act
+						#print "FOUND CONTEXT, GOT ESC", context_act
 						context_act = context_act[1:len(context_act)]
 					else:
-						print "FOUND CONTEXT, GOT CHAR", context_act, simb
+						#print "FOUND CONTEXT, GOT CHAR", context_act, simb
 						texto += simb
 						count += 1
 						emitido = True
 			
 			if (not emitido):
-				print "TRYING MODEL ZERO"
-				print self.tablas[MODELO_CERO].verItems()
+				#print "TRYING MODEL ZERO"
+				#print self.tablas[MODELO_CERO].verItems()
 				simb = deco.decomprimirSimbolo(self.tablas[MODELO_CERO])
 				if (simb == ESCAPE_CODE):
-					print "GOT ESC, TRY MODEL -1"
+					#print "GOT ESC, TRY MODEL -1"
 					simb = deco.decomprimirSimbolo(self.tablas[MODELO_MENOS_UNO])
 					
-				print "GOT", simb
+				#print "GOT", simb
 				texto += simb
 				count += 1
 				emitido = True

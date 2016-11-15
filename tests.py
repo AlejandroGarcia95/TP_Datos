@@ -25,12 +25,10 @@ print "-----"
 cmpr = CompresorHibrido(5)
 cmpr.entrenar(texto)
 
-print (cmpr.testearCompresion('w'))
-
-#for line in texto.split('\n'):
-#	test = cmpr.testearCompresion(line)
-#	if (not test):
-#		print "|" + line + "|"
-#		raise StopIteration
+for line in texto.split('\n'):
+	test = cmpr.testearCompresion(line)
+	if (not test):
+		print "|" + line + "|"
+		raise StopIteration
 	
 file.close()
