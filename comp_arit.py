@@ -15,6 +15,12 @@ class CompresorAritmetico:
 		self.intSuperior = MAX_INT
 		self.E3count = 0
 	
+	def clean(self):
+		self.codigo = ''
+		self.intInferior = MIN_INT
+		self.intSuperior = MAX_INT
+		self.E3count = 0		
+	
 	def emit(self, bit):
 		if (bit == 0):
 			self.codigo += '0'
@@ -31,6 +37,7 @@ class CompresorAritmetico:
 			return
 		
 		longMinima = (self.intSuperior - self.intInferior) / casosTotales
+		
 		# Posibilidad de usar el resto para optimizar?
 		#resto = (self.intSuperior - self.intInferior) - (longMinima * casosTotales)
 		
@@ -87,7 +94,7 @@ class CompresorAritmetico:
 		i = 1
 		lastBits = ''
 
-		while((valorBin <= self.intInferior) or (valorBin >= self.intSuperior)):
+		while((valorBin <= self.intInferior)):# or (valorBin >= self.intSuperior)):
 			aux = HALF_INT >> (i-1)
 			if((valorBin + aux) >= self.intSuperior):
 				lastBits += '0'
@@ -108,7 +115,8 @@ class CompresorAritmetico:
 					self.emit(1)
 				else:
 					self.emit(0)
-			lastBits += lastBits[1:len(lastBits)]
+			#lastBits += lastBits[1:len(lastBits)]
+			
 		for c in lastBits:
 			if (c == '0'):
 				self.emit(0)
@@ -162,7 +170,7 @@ class DecompresorAritmetico:
 		self.deco = Decodificador(codigo)
 		self.cuenta = 0
 		self.texto = ''
-		
+			
 	def getInterval():
 		return (float(self.intInferior)/MAX_INT, float(self.intSueprior)/MAX_INT)
 		
@@ -189,12 +197,12 @@ class DecompresorAritmetico:
 		longMinima = (self.intSuperior - self.intInferior) / casosTotales
 		# Posibilidad de usar el resto para optimizar
 		#resto = (self.intSuperior - self.intInferior) - (longMinima * casosTotales)
-		
+				
 		target = self.deco.getValue()
 		
 		for simb in simbolos:
 			self.intSuperior = self.intInferior + (tabla.verFrecuencia(simb) * longMinima)
-			
+			print simb, " --- ", self.intInferior, self.intSuperior
 			
 			if ((target >= self.intInferior) and (target < self.intSuperior)):
 							
