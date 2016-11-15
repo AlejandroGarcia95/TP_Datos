@@ -2,7 +2,7 @@
 #coding=utf-8
 
 from comp_arit import *
-from parseo import *
+from symbol_table import *
 
 MODELO_MENOS_UNO = -1
 ESCAPE_CODE = 'ESC'
@@ -74,9 +74,6 @@ class CompresorEstatico:
 		return texto
 	
 
-
-
-
 class CompresorHibrido:
 	u""" Compresor híbrido de órden parametrizable.
 	
@@ -138,8 +135,18 @@ class CompresorHibrido:
 				context = context + c
 			elif(self.orden == len(context) and self.orden > 0):
 				context = context[1:len(context)] + c
-			
 		
+	def verTablas(self):
+		return self.tablas
+		
+	def combinarTabla(self, otraTabla):
+		for e in otraTabla.keys():
+			if (e not in self.tablas.keys()):
+				self.tablas[e] = SymbolTable()
+			if (not (e == MODELO_MENOS_UNO)):
+				self.tablas[e].combinar(otraTabla[e])
+				self.tablas[e].setearFrecuencia(ESCAPE_CODE, 1)
+				
 	def comprimir(self, texto):
 		context = ''	
 		for c in texto:

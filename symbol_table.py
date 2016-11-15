@@ -33,9 +33,12 @@
 # review un proceso de stemming, filtrado de palabras menos usadas, etc.
 
 
+from collections import Counter
+
+
 class SymbolTable:
 	def __init__(self):
-		self.simbolos = {}
+		self.simbolos = Counter()
 		
 	def agregarSimbolo(self, simbolo):
 		self.simbolos[simbolo] = 1	
@@ -55,33 +58,36 @@ class SymbolTable:
 		else:
 			self.simbolos[simbolo] += 1
 	
+	def combinar(self, otra):
+		self.simbolos = self.simbolos + otra.simbolos
+	
 	def verFrecuencia(self, simbolo):
 		if not self.simbolos.has_key(simbolo): #Agregar simbolo ?
 			return 1
 		else:
 			return self.simbolos[simbolo]
-			
+	
+	def setearFrecuencia(self, simb ,freq):
+		self.simbolos[simb] = freq
+	
 	def verItems(self):
 		return self.simbolos.items();
+	
+	def __str__(self):
+		return str(self.simbolos.items())
+	
+	
+s = SymbolTable()
+s.agregarSimbolo('a')
+s.aumentarFrecuencia('a')
+s.aumentarFrecuencia('b')
+t = SymbolTable()
+t.aumentarFrecuencia('b')
+t.aumentarFrecuencia('c')
+print s
+print t
+s.combinar(t)
 
+print s
+print t
 		
-
-
-class SymbolParser: 
-	# parseMode: Identifica <<el símbolo>> a parsear
-	# Por ahora solo está para parsear por letras
-	# Otras opciones viables: n-grams, palabras, etc
-	def __init__(self, modo = 'letra'):
-		self.parseMode = modo
-		
-	def parsearTexto(self, texto, tabla):
-		if (self.parseMode == 'letra'):
-			for c in texto:
-				tabla.aumentarFrecuencia(c)
-		elif (self.parseMode == 'palabra'):
-			palabras = texto.split()
-			for w in palabras:
-				tabla.aumentarFrecuencia(w)
-		
-
-

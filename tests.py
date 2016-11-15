@@ -4,12 +4,30 @@ from ppmc import *
 
 texto = 'I was unable to cope with what you said\nSometimes we need to be cruel to be kind\nChild that I was, could not see the reason\nFeelings I had were but sham and a lie?\n\nI have never forgotten your smile\nYour eyes, oh, Shamandalie\n\nTime went by, many memories died\nI\'m writing this down to ease my pain\n\nYou saw us always clearer than me\nHow we were never meant to be\nLove denied meant the friendship would die\nNow I have seen the light\nThese memories make me cry\0'
 
+t1 = 'AAAABBB'
+t2 = 'EEEAAAS'
+
+cmpr = CompresorHibrido(2)
+cmpr.entrenar(t1)
+
+cmpr2 = CompresorHibrido(2)
+cmpr2.entrenar(t2)
+
+cmpr.combinarTabla(cmpr2.verTablas())
+for elem in cmpr.verTablas():
+	
+	print elem, cmpr.verTablas()[elem]
+
 file = open("sonata.txt")
 texto = ''
 for line in file:
 	texto += line
 texto += '\0'
 print "-----"
+
+cmpr = CompresorHibrido(5)
+cmpr.entrenar(texto)
+print texto == cmpr.descomprimir(cmpr.comprimir(texto), len(texto))
 
 # Modo de uso del compresor hibrido:
 # entrenar(texto)			---- entrena al compresor
