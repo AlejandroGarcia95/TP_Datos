@@ -1,5 +1,5 @@
 
-MENSAJE = MulticatSVM vivee
+MENSAJE = SVM rdy to go
 
 all:
 	jupyter notebook --ip 0.0.0.0

@@ -1,7 +1,7 @@
 ----------------------------------------------------------------
-Mon Nov 14 15:58:52 ART 2016:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-0158-6434-cebb-00003a7d3008 
-on database directory /home/ale/psPy/TP_Datos/metastore_db with class loader org.apache.spark.sql.hive.client.IsolatedClientLoader$$anon$1@179cb16 
+Wed Nov 16 10:24:30 ART 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-0158-6d4f-6968-00003a42a790 
+on database directory /home/ale/psPy/TP_Datos/metastore_db with class loader org.apache.spark.sql.hive.client.IsolatedClientLoader$$anon$1@fd372d 
 Loaded from file:/home/ale/apache/spark-1.6.0-bin-hadoop2.6/lib/spark-assembly-1.6.0-hadoop2.6.0.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.7.0_80-b15

@@ -77,17 +77,5 @@ class SymbolTable:
 		return str(self.simbolos.items())
 	
 	
-s = SymbolTable()
-s.agregarSimbolo('a')
-s.aumentarFrecuencia('a')
-s.aumentarFrecuencia('b')
-t = SymbolTable()
-t.aumentarFrecuencia('b')
-t.aumentarFrecuencia('c')
-print s
-print t
-s.combinar(t)
 
-print s
-print t
 		
