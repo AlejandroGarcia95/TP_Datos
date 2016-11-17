@@ -76,6 +76,7 @@ class SymbolTable:
 	def __str__(self):
 		return str(self.simbolos.items())
 	
+<<<<<<< HEAD
 
 
 class SymbolParser: 
@@ -84,6 +85,10 @@ class SymbolParser:
 	# Otras opciones viables: n-grams, palabras, etc
 	def __init__(self, modo = 'letra'):
 		self.parseMode = modo
+=======
+	
+
+>>>>>>> a2edda430839f9dd1b6072293d264a5e24fd88d8
 		
 	def parsearTexto(self, texto, tabla):
 		if (self.parseMode == 'letra'):

@@ -1,5 +1,5 @@
 
-MENSAJE = SVM rdy to go
+MENSAJE = Pre-procesamiento hecho
 
 all:
 	jupyter notebook --ip 0.0.0.0
