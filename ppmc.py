@@ -91,7 +91,6 @@ class CompresorHibrido:
 		
 		self.clean()
 		
-		
 	def clean(self):
 		u"""Limpia al compresor cualquier entrenamiento.
 		
@@ -191,7 +190,6 @@ class CompresorHibrido:
 		self.comp.clean()
 		return texto
 			
-		
 	def descomprimir(self, binario, n):
 		""" Trata de descomprimir n caracteres del binario """
 		count = 0		
@@ -241,7 +239,6 @@ class CompresorHibrido:
 				context = context[1:len(context)] + simb
 		
 		return texto
-		
 		
 	def testearCompresion(self, texto):
 		u"""Test de compresión correcta para un dado texto

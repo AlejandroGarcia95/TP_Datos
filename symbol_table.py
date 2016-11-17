@@ -76,18 +76,20 @@ class SymbolTable:
 	def __str__(self):
 		return str(self.simbolos.items())
 	
-	
-s = SymbolTable()
-s.agregarSimbolo('a')
-s.aumentarFrecuencia('a')
-s.aumentarFrecuencia('b')
-t = SymbolTable()
-t.aumentarFrecuencia('b')
-t.aumentarFrecuencia('c')
-print s
-print t
-s.combinar(t)
 
-print s
-print t
+
+class SymbolParser: 
+	# parseMode: Identifica <<el símbolo>> a parsear
+	# Por ahora solo está para parsear por letras
+	# Otras opciones viables: n-grams, palabras, etc
+	def __init__(self, modo = 'letra'):
+		self.parseMode = modo
 		
+	def parsearTexto(self, texto, tabla):
+		if (self.parseMode == 'letra'):
+			for c in texto:
+				tabla.aumentarFrecuencia(c)
+		elif (self.parseMode == 'palabra'):
+			palabras = texto.split()
+			for w in palabras:
+				tabla.aumentarFrecuencia(w)
