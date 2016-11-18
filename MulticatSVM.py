@@ -4,6 +4,7 @@
 import numpy as np
 from scipy import optimize
 from basicSVM import *
+from scipy import spatial
 
 # El MulticatSVM funciona de forma similar al SVM básico, pero siendo
 # capaz de clasificar enésimas categorías. 
@@ -57,10 +58,10 @@ class MulticatSVM:
 		
 	# Kernel gaussiano pre-disponible para el MulticatSVM.
 	# Propiedad de Alejandro García, no tocar.	
-	def kernel_gaussiano(x, y):
+	def kernel_gaussiano(self, x, y):
 		s = self.sigma
-		dist = np.linalg.norm(x - y)
-		return np.exp((-0.5 * dist * dist) / (s * s) )
+		dist = spatial.distance.sqeuclidean(x, y)
+		return np.e**((-0.5 * dist) / (s * s) )
 	
 	# Entrena al MulticatSVM con los datos recibidos. Los datos deben respetar
 	# el siguiente formato loco: datos es una lista de listas de numpy.vector
@@ -106,7 +107,7 @@ class MulticatSVM:
 			hiperplano = np.copy(self.resultados[i][0])
 			hiperplano = np.append(hiperplano, self.resultados[i][1])
 			elResult = self.kernel(aux, hiperplano)
-			if(self.criterio_lineal(elResult) > 0):
+			if(self.criterio(elResult) > 0):
 				return i+1
 		return self.categorias
 	

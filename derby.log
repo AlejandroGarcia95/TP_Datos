@@ -1,20 +1,13 @@
 ----------------------------------------------------------------
-<<<<<<< HEAD
-Wed Nov 16 18:53:09 ART 2016:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-0158-6f21-14b2-0000351f1920 
-on database directory /home/juan/Documentos/Datos/TP_Datos/metastore_db with class loader org.apache.spark.sql.hive.client.IsolatedClientLoader$$anon$1@2fe9859c 
-Loaded from file:/usr/share/spark-1.6.2-bin-hadoop2.6/lib/spark-assembly-1.6.2-hadoop2.6.0.jar
-=======
-Wed Nov 16 10:24:30 ART 2016:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-0158-6d4f-6968-00003a42a790 
-on database directory /home/ale/psPy/TP_Datos/metastore_db with class loader org.apache.spark.sql.hive.client.IsolatedClientLoader$$anon$1@fd372d 
+Fri Nov 18 11:47:51 ART 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-0158-77e8-7017-000039b654c8 
+on database directory /home/ale/psPy/TP_Datos/metastore_db with class loader org.apache.spark.sql.hive.client.IsolatedClientLoader$$anon$1@1511450 
 Loaded from file:/home/ale/apache/spark-1.6.0-bin-hadoop2.6/lib/spark-assembly-1.6.0-hadoop2.6.0.jar
->>>>>>> a2edda430839f9dd1b6072293d264a5e24fd88d8
 java.vendor=Oracle Corporation
 java.runtime.version=1.7.0_80-b15
-user.dir=/home/juan/Documentos/Datos/TP_Datos
+user.dir=/home/ale/psPy/TP_Datos
 os.name=Linux
-os.arch=amd64
-os.version=3.13.0-101-generic
+os.arch=i386
+os.version=3.13.0-32-generic
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

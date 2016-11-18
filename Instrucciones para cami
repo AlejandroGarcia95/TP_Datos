@@ -1,0 +1,10 @@
+Estimada Camila:
+
+	Como ya hablamos, tenemos que hacer las mediciones de k-fold crossed validation (de ahora en más, KFCV) que hacen falta.
+	Para vos, te dejo las mediciones con el SVM lineal, y yo voy a hacer las del kernel gaussiano. Así como está el notebook te serviría para medir todo a vos en modo lineal. Los hiperparámetros se cambian todos en el bloque principal. Ahí te digo donde:
+- Los flags de pre-procesamiento de reviews son la lista de 1s y 0s que se pasa a la función preprocesar_reviews
+- El valor de la cte C de soft-margin lo tenés que cambiar en dos lados (una adentro de la función de entrenar_SVM). Aparece como C_inicial
+- El valor de la dimensión de los vectores aparece dos veces como dim_k en las funciones del hashing_trick y de funcion_hash
+- El valor de deltaC aparece en la función miDeltaC (inicialmente como 0.5)
+
+	Acordate que si el bloque principal explota la primer vez, es porque tenés que correr de nuevo la celdita con el vectorizador :p

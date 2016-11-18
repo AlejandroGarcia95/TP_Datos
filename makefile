@@ -1,5 +1,5 @@
 
-MENSAJE = We can still win this(?
+MENSAJE = Instrucciones para Cami
 
 all:
 	jupyter notebook --ip 0.0.0.0
