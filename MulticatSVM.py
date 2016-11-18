@@ -85,9 +85,9 @@ class MulticatSVM:
 			# Entreno el SVM básico como una categoría vs. todas las demás
 			basicSVM = SVM(dim = self.dimension, cte_soft_margin = self.C, kernel_func = self.kernel)
 			basicSVM.entrenar(datos_claseA = catA, datos_claseB = catB)
-			self.resultados.append(basicSVM.devolver_hiperplano())
+			self.resultados.insert(0, basicSVM.devolver_hiperplano())
 			self.C = self.delta_C(self.C)
-		print self.resultados
+		#print self.resultados
 	
 	# Función delta_C por defecto. Cambiar 0.55 por 1? Sólo puedo decir que 0.55 me funcionó relativamente bien
 	def delta_C_lineal(self, viejoC):
@@ -194,7 +194,5 @@ print "(-0.1, -2.9): ", our_svm.predecir(np.array([-0.1, -2.9]))
 print "(1.5, 3.5): ", our_svm.predecir(np.array([1.5, 3.5]))
 print "(-3.1, 0.0): ", our_svm.predecir(np.array([-3.1, 0.0]))
 """
-
-
 
 

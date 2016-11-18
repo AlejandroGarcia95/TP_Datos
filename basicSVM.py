@@ -152,10 +152,10 @@ class SVM:
 		}
 		# Vector inicial random
 		x0 = np.random.randn(self.dimension + 1 + cantDatos)
-		opt = {'disp':False}
+		opt = {'disp':False, 'maxiter':26, 'ftol': 0.05}
 		# Resuelvo el modelo y lo guardo en resultados
 		self.resultados = optimize.minimize(self.funcion_objetivo, x0, jac=self.funcion_jac,constraints=cons, method='SLSQP', options=opt)
-		#print self.resultados
+		print "Iteraciones SVM:", self.resultados.nit
 		
 	# Predice la categoría del nuevoDato, devolviendo un valor.
 	# IMPORTANTE: nuevoDato debe ser de clase numpy.vector, y tiene
